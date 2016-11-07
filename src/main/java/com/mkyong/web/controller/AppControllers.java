@@ -79,7 +79,7 @@ public class AppControllers
         //set list computeCachedData
         Date currentdate = Calendar.getInstance().getTime();
         List<List<LMDReservationCalendarTakeAway>> computeCachedData = new ArrayList<List<LMDReservationCalendarTakeAway>>();
-        for (int i = 0; i < 41; i++)
+        for (int i = 0; i < 2; i++)
         {
             List<LMDReservationCalendarTakeAway> listComputeCached = new ArrayList<LMDReservationCalendarTakeAway>();
             for (int j = 0; j < 4; j++)
@@ -90,11 +90,106 @@ public class AppControllers
             
             computeCachedData.add(listComputeCached);
         }
+        
+        for (int i = 2; i < 4; i++)
+        {
+            List<LMDReservationCalendarTakeAway> listComputeCached = new ArrayList<LMDReservationCalendarTakeAway>();
+            for (int j = 0; j < 4; j++)
+            {
+                Set<String> events = new HashSet<String>();
+                listComputeCached.add(new LMDReservationCalendarTakeAway(128+j, 4+j, "type " + j + 1, true, false, events, 80, false, DateUtils.addDays(currentdate, i), new  SimpleDateFormat("yyyy.MM.dd").format(DateUtils.addDays(currentdate, i)), 100, ""));
+            }
+            
+            computeCachedData.add(listComputeCached);
+        }
+        
+        for (int i = 4; i < 6; i++)
+        {
+            List<LMDReservationCalendarTakeAway> listComputeCached = new ArrayList<LMDReservationCalendarTakeAway>();
+            for (int j = 0; j < 4; j++)
+            {
+                Set<String> events = new HashSet<String>();
+                listComputeCached.add(new LMDReservationCalendarTakeAway(128+j, 4+j, "type " + j + 1, true, false, events, 50, false, DateUtils.addDays(currentdate, i), new  SimpleDateFormat("yyyy.MM.dd").format(DateUtils.addDays(currentdate, i)), 100, ""));
+            }
+            
+            computeCachedData.add(listComputeCached);
+        }
+        
+        for (int i = 6; i < 8; i++)
+        {
+            List<LMDReservationCalendarTakeAway> listComputeCached = new ArrayList<LMDReservationCalendarTakeAway>();
+            for (int j = 0; j < 4; j++)
+            {
+                Set<String> events = new HashSet<String>();
+                listComputeCached.add(new LMDReservationCalendarTakeAway(128+j, 4+j, "type " + j + 1, true, false, events, 130, false, DateUtils.addDays(currentdate, i), new  SimpleDateFormat("yyyy.MM.dd").format(DateUtils.addDays(currentdate, i)), 100, ""));
+            }
+            
+            computeCachedData.add(listComputeCached);
+        }
+        
+        for (int i = 8; i < 10; i++)
+        {
+            List<LMDReservationCalendarTakeAway> listComputeCached = new ArrayList<LMDReservationCalendarTakeAway>();
+            for (int j = 0; j < 4; j++)
+            {
+                Set<String> events = new HashSet<String>();
+                listComputeCached.add(new LMDReservationCalendarTakeAway(128+j, 4+j, "type " + j + 1, true, false, events, 150, false, DateUtils.addDays(currentdate, i), new  SimpleDateFormat("yyyy.MM.dd").format(DateUtils.addDays(currentdate, i)), 100, ""));
+            }
+            
+            computeCachedData.add(listComputeCached);
+        }
+        
+        for (int i = 10; i < 12 ; i++)
+        {
+            List<LMDReservationCalendarTakeAway> listComputeCached = new ArrayList<LMDReservationCalendarTakeAway>();
+            for (int j = 0; j < 4; j++)
+            {
+                Set<String> events = new HashSet<String>();
+                listComputeCached.add(new LMDReservationCalendarTakeAway(128+j, 4+j, "type " + j + 1, true, false, events, 60, false, DateUtils.addDays(currentdate, i), new  SimpleDateFormat("yyyy.MM.dd").format(DateUtils.addDays(currentdate, i)), 100, ""));
+            }
+            
+            computeCachedData.add(listComputeCached);
+        }
+        
+        for (int i = 10; i < 14 ; i++)
+        {
+            List<LMDReservationCalendarTakeAway> listComputeCached = new ArrayList<LMDReservationCalendarTakeAway>();
+            for (int j = 0; j < 4; j++)
+            {
+                Set<String> events = new HashSet<String>();
+                listComputeCached.add(new LMDReservationCalendarTakeAway(128+j, 4+j, "type " + j + 1, true, false, events, 100, false, DateUtils.addDays(currentdate, i), new  SimpleDateFormat("yyyy.MM.dd").format(DateUtils.addDays(currentdate, i)), 100, ""));
+            }
+            
+            computeCachedData.add(listComputeCached);
+        }
+        
         accommodationData.setComputeCachedData(computeCachedData);
         
         
         accommodationData.setStartDate(computeCachedData.get(0).get(0).getReservationDate());
         accommodationData.setEndDate(computeCachedData.get(computeCachedData.size()-1).get(0).getReservationDate());
         return accommodationData;
+    }
+    
+    @RequestMapping(value="rest/guest/reservation", method = RequestMethod.GET,  produces = "application/json")
+    @ResponseBody
+    public Map<String, Object> returnGuestReservationList()
+    {
+        Map<String, Object> output = new HashMap<String, Object>();
+        List<Hut> huts = new ArrayList<Hut>();
+        
+        huts.add(new Hut(11L, "Nha la"));
+        huts.add(new Hut(22L, "Nha Go~"));
+        huts.add(new Hut(33L, "Nha Xi Mang"));
+        
+        output.put("Huts", huts);
+        
+        List<Reservation> reservation = new ArrayList<Reservation>();
+        reservation.add(new Reservation(1111L, "2016.11.07", 11L, "Nha La", 4, "Confirmed"));
+        reservation.add(new Reservation(2222L, "2016.11.15", 11L, "Nha Go", 12, "Canceled"));
+        
+        output.put("reservation", reservation);
+        
+        return output;
     }
 }
